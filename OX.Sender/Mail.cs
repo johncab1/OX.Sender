@@ -33,7 +33,7 @@ namespace OX.Sender
                 Credentials = new NetworkCredential(_mailConfiguration.FromAddress, _mailConfiguration.Password),
 
             };
-            AlternateView view = AlternateView.CreateAlternateViewFromString(CreateBody(_mailConfiguration.UserValidationTemplate), Encoding.UTF8, MediaTypeNames.Text.Html);
+            AlternateView view = AlternateView.CreateAlternateViewFromString(CreateBody(_mailConfiguration.Template), Encoding.UTF8, MediaTypeNames.Text.Html);
 
             using (var message = new MailMessage(_mailConfiguration.FromAddress, _mailConfiguration.ToAddress)
             {
@@ -74,7 +74,7 @@ namespace OX.Sender
                 Credentials = new NetworkCredential(_mailConfiguration.FromAddress, _mailConfiguration.Password),
 
             };
-            AlternateView view = AlternateView.CreateAlternateViewFromString(CreateBody(_mailConfiguration.UserValidationTemplate, mail, link), Encoding.UTF8, MediaTypeNames.Text.Html);
+            AlternateView view = AlternateView.CreateAlternateViewFromString(CreateBody(_mailConfiguration.Template, mail, link), Encoding.UTF8, MediaTypeNames.Text.Html);
 
             LinkedResource imageLinked = new LinkedResource(imagePath);
             imageLinked.ContentId = "logo";

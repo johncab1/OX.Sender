@@ -27,7 +27,7 @@ Example
 
             Mail mail = new Mail(mailConfiguration);
 
-            mail.Send(_user.Email, "https://fakelink.com");
+            mail.Send();
 
             //or can replace imagepath, email and link data in template
             mail.Send(imagePath, email, link);

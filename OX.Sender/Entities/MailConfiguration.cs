@@ -8,7 +8,7 @@ namespace OX.Sender.Entities
 {
     public class MailConfiguration
     {
-        public string UserValidationTemplate { get; set; }
+        public string Template { get; set; }
         public string FromAddress { get; set; }
         public string ToAddress { get; set; }
         public string Password { get; set; }
