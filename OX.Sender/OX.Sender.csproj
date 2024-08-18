@@ -8,21 +8,14 @@
     <Title>OX.Sender</Title>
     <Authors>Jonatan Rodríguez</Authors>
     <Description>Send emails using HTML template</Description>
-    <PackageIcon>ollin.png</PackageIcon>
+    <PackageIcon></PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>email;correo</PackageTags>
-    <PackageReleaseNotes>add method to replace mail and link data</PackageReleaseNotes>
+    <PackageReleaseNotes>added image with LinkedReource</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageProjectUrl>https://github.com/johncab1/OX.Sender</PackageProjectUrl>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\..\..\Users\jonatan\Downloads\ollin.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
     <None Update="LICENSE.txt">

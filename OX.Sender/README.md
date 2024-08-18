@@ -1,4 +1,4 @@
-# OX.Mailer 1.0.3
+# OX.Mailer 1.0.4
 
 
 
@@ -22,7 +22,7 @@ Example
             mailConfiguration.Subject = _config["Subject"];
             mailConfiguration.Host = _config["host"];
             mailConfiguration.ToAddress = email;
-            mailConfiguration._config["templatePath"];
+            mailConfiguration.Template = _config["templatePath"];
             string imagePath = path;
 
             Mail mail = new Mail(mailConfiguration);

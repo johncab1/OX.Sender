@@ -74,7 +74,11 @@ namespace OX.Sender
                 Credentials = new NetworkCredential(_mailConfiguration.FromAddress, _mailConfiguration.Password),
 
             };
-            AlternateView view = AlternateView.CreateAlternateViewFromString(CreateBody(_mailConfiguration.UserValidationTemplate, imagePath, mail, link), Encoding.UTF8, MediaTypeNames.Text.Html);
+            AlternateView view = AlternateView.CreateAlternateViewFromString(CreateBody(_mailConfiguration.UserValidationTemplate, mail, link), Encoding.UTF8, MediaTypeNames.Text.Html);
+
+            LinkedResource imageLinked = new LinkedResource(imagePath);
+            imageLinked.ContentId = "logo";
+            view.LinkedResources.Add(imageLinked);
 
             using (var message = new MailMessage(_mailConfiguration.FromAddress, _mailConfiguration.ToAddress)
             {
@@ -90,7 +94,7 @@ namespace OX.Sender
             return true;
         }
 
-        private string CreateBody(string TemplatePath, string imagePath = "", string email = "", string link = "")
+        private string CreateBody(string TemplatePath, string email = "", string link = "")
         {
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(TemplatePath))
@@ -100,7 +104,6 @@ namespace OX.Sender
 
             body = body.Replace("{femail}", email);
             body = body.Replace("{flink}", link);
-            body = body.Replace("{fimagePath}", imagePath);
 
             return body;
         }
