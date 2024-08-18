@@ -15,6 +15,12 @@ namespace OX.Sender
             _mailConfiguration = mailConfiguration;
         }
 
+        ///<summary>
+        ///Send an email.
+        ///</summary>
+        ///<return>
+        ///returns true if the mail was send.
+        ///</return>
         public bool Send()
         {
             var smtp = new SmtpClient
@@ -27,7 +33,7 @@ namespace OX.Sender
                 Credentials = new NetworkCredential(_mailConfiguration.FromAddress, _mailConfiguration.Password),
 
             };
-            AlternateView view = AlternateView.CreateAlternateViewFromString(CreateBody(_mailConfiguration.UserValidationTemplate, "mail", "link"), Encoding.UTF8, MediaTypeNames.Text.Html);
+            AlternateView view = AlternateView.CreateAlternateViewFromString(CreateBody(_mailConfiguration.UserValidationTemplate), Encoding.UTF8, MediaTypeNames.Text.Html);
 
             using (var message = new MailMessage(_mailConfiguration.FromAddress, _mailConfiguration.ToAddress)
             {
@@ -44,7 +50,47 @@ namespace OX.Sender
         }
 
 
-        private string CreateBody(string TemplatePath, string email, string link)
+        ///<summary>
+        ///Execute an stored procedure.
+        ///</summary>
+        ///<return>
+        ///returns true if the mail was send.
+        ///</return>
+        ///<param name="mail">
+        ///email that will be put in the template.
+        ///</param>
+        ///<param name="link">
+        ///link that will be put in the template.
+        ///</param>
+        public bool Send(string imagePath, string mail, string link)
+        {
+            var smtp = new SmtpClient
+            {
+                Host = _mailConfiguration.Host,
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(_mailConfiguration.FromAddress, _mailConfiguration.Password),
+
+            };
+            AlternateView view = AlternateView.CreateAlternateViewFromString(CreateBody(_mailConfiguration.UserValidationTemplate, imagePath, mail, link), Encoding.UTF8, MediaTypeNames.Text.Html);
+
+            using (var message = new MailMessage(_mailConfiguration.FromAddress, _mailConfiguration.ToAddress)
+            {
+                Subject = _mailConfiguration.Subject,
+                Body = _mailConfiguration.Body,
+            })
+
+            {
+                message.AlternateViews.Add(view);
+                smtp.Send(message);
+            }
+
+            return true;
+        }
+
+        private string CreateBody(string TemplatePath, string imagePath = "", string email = "", string link = "")
         {
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(TemplatePath))
@@ -54,6 +100,8 @@ namespace OX.Sender
 
             body = body.Replace("{femail}", email);
             body = body.Replace("{flink}", link);
+            body = body.Replace("{fimagePath}", imagePath);
+
             return body;
         }
     }
